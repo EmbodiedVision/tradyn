@@ -72,9 +72,14 @@ See `archive-metadata.md` at https://keeper.mpdl.mpg.de/d/f72a314ef6464190b10b/ 
 You can either download pretrained models (also providing evaluation files), or run training and evaluation yourself.
 
 ### Download pre-trained models
-You can download pre-trained models (and their corresponding evaluations), with
+You can download pre-trained models (and their corresponding evaluations). There are two variants available, see the section `Errata` below.
 ```
+# Models as presented in the paper (trained for a fixed number of steps)
 wget https://keeper.mpdl.mpg.de/f/37dcc2614b044a598186/?dl=1 -O trained_models.tgz
+
+# Updated models (checkpoints contain model weights at minimal validation loss)
+wget https://keeper.mpdl.mpg.de/f/9a5b7fbe3e204d0ebc21/?dl=1 -O trained_models.tgz  
+
 mkdir -p experiments/train_model
 tar xvz -f trained_models.tgz -C experiments/train_model/ --strip-components=1 trained_models
 ```
@@ -113,7 +118,7 @@ May 2024
 * In Figure 5, we report an error on the velocity normalized to the range $[-1, 1]$ (Norm. velocity). In the branch [bugfix_plots](https://github.com/EmbodiedVision/tradyn/tree/bugfix_plots/), we have updated the plot to show the velocity error without rescaling.
 
 
-* We have discovered an error in the implementation of (Achterhold & Stueckler, 2021, http://proceedings.mlr.press/v130/achterhold21a.html), which we build upon. In contrast to what is reported in (Achterhold & Stueckler, 2021), not the models with the minimal validation loss are used for the final evaluation, but those after a fixed number of training steps. The branch [bugfix_models](https://github.com/EmbodiedVision/tradyn/tree/bugfix_models/) contains an evaluation at minimal validation loss, including the updates for the plots mentioned above.
+* We have discovered an error in the implementation of (Achterhold & Stueckler, 2021, http://proceedings.mlr.press/v130/achterhold21a.html), which we build upon. In contrast to what is reported in (Achterhold & Stueckler, 2021), not the models with the minimal validation loss are used for the final evaluation, but those after a fixed number of training steps. The branch [bugfix_models](https://github.com/EmbodiedVision/tradyn/tree/bugfix_models/) contains an evaluation at minimal validation loss, including the updates for the plots mentioned above.  See the section `Download pre-trained models` how to download either of the two model variants. 
 
   * In terms of prediction error (Fig. 5) and control energy (Fig. 6), we found the two variants to yield comparable results.
   * Slightly different trajectories are followed compared to those shown in Figures 7 and 8. In both variants, terrain lookup avoids high-friction regions and yields a reduction in throttle control energy.
